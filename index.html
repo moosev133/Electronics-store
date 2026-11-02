@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>חנות מוצרי חשמל</title>
+  <style>
+    :root {
+      --bg: #0e1015;
+      --panel: #1b1f27;
+      --panel2: #282d37;
+      --gold: #e4bf70;
+      --text: #f5f5f5;
+      --muted: #a8adb7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1250px; margin: auto; padding: 20px; }
+    .topbar {
+      padding: 12px 5%;
+      background: #171a20;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      font-size: 13px;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #101318;
+      border-bottom: 1px solid #343840;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 5%;
+    }
+    .menu-btn, .icon-btn {
+      border: 1px solid #5d513b;
+      background: #242832;
+      color: var(--gold);
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+    .menu-btn { font-size: 22px; }
+    .search {
+      flex: 1;
+      padding: 13px;
+      border: 1px solid #424650;
+      border-radius: 10px;
+      background: #22262f;
+      color: white;
+      min-width: 0;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -350px;
+      width: min(350px, 90vw);
+      height: 100vh;
+      background: #191d25;
+      z-index: 40;
+      padding: 20px;
+      overflow-y: auto;
+      transition: right .3s ease;
+      box-shadow: -5px 0 30px #0008;
+    }
+    .sidebar.open { right: 0; }
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #0009;
+      z-index: 30;
+    }
+    .overlay.show { display: block; }
+    .sidebar-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .category {
+      width: 100%;
+      padding: 15px;
+      text-align: right;
+      background: #252a33;
+      color: white;
+      border: 0;
+      border-radius: 9px;
+      margin-bottom: 7px;
+    }
+    .category:hover { background: #38352e; color: var(--gold); }
+    .submenu {
+      display: none;
+      padding: 5px 20px 15px;
+    }
+    .submenu.open { display: block; }
+    .submenu a {
+      display: block;
+      padding: 10px 0;
+      color: var(--muted);
+      border-bottom: 1px solid #30343c;
+    }
+    .hero {
+      position: relative;
+      min-height: 340px;
+      background: linear-gradient(120deg,#222631,#373126);
+      border: 1px solid #655333;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    .slide {
+      display: none;
+      min-height: 340px;
+      padding: 55px 70px;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .slide.active { display: flex; }
+    .slide h1 { font-size: clamp(28px,4vw,48px); color: var(--gold); }
+    .slide p { color: var(--muted); }
+    .gold-btn {
+      background: var(--gold);
+      color: #161616;
+      padding: 13px 22px;
+      border: 0;
+      border-radius: 9px;
+      font-weight: bold;
+      align-self: flex-start;
+    }
+    .arrows {
+      position: absolute;
+      bottom: 20px;
+      left: 25px;
+      display: flex;
+      gap: 10px;
+    }
+    .dots { position: absolute; bottom: 24px; right: 30px; display: flex; gap: 8px; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: #777; border: 0; padding: 0; }
+    .dot.active { background: var(--gold); }
+    .grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 15px; }
+    .promo {
+      background: var(--panel);
+      border: 1px solid #393d45;
+      border-radius: 13px;
+      min-height: 130px;
+      padding: 25px;
+    }
+    .promo h3 { color: var(--gold); }
+    section { margin: 45px 0; }
+    .section-title { display: flex; justify-content: space-between; align-items: center; }
+    .section-title h2 { color: var(--gold); }
+    .products { display: grid; grid-template-columns: repeat(4,1fr); gap: 15px; }
+    .product {
+      padding: 18px;
+      background: var(--panel);
+      border-radius: 13px;
+      border: 1px solid #353a43;
+    }
+    .placeholder {
+      height: 140px;
+      border-radius: 9px;
+      background: var(--panel2);
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+    .price { color: var(--gold); font-weight: bold; font-size: 20px; }
+    .old { text-decoration: line-through; color: #9298a3; }
+    .discount { color: #ff7777; }
+    .product button { width: 100%; margin-top: 12px; }
+    footer { background: #191d24; padding: 45px 5%; color: var(--muted); }
+    footer h3 { color: var(--gold); }
+    .footer-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; }
+    @media(max-width:700px) {
+      .header-inner { gap: 8px; padding: 12px; }
+      .grid { grid-template-columns: 1fr; }
+      .products { grid-template-columns: repeat(2,1fr); }
+      .slide { padding: 40px 25px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .topbar { flex-wrap: wrap; }
+      .icon-btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>📍 סניפים | ☎ יצירת קשר | Instagram</span>
+  <span>עברית | English | العربية</span>
+</div>
+
+<header>
+  <div class="header-inner">
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="פתיחת תפריט">☰</button>
+    <input class="search" placeholder="חיפוש מוצרים..." aria-label="חיפוש">
+    <button class="icon-btn" aria-label="חשבון">♙</button>
+    <button class="icon-btn" aria-label="סל קניות">🛒</button>
+  </div>
+</header>
+
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<nav class="sidebar" id="sidebar" aria-label="קטגוריות">
+  <div class="sidebar-head">
+    <h2>כל הקטגוריות</h2>
+    <button class="icon-btn" onclick="toggleMenu()">✕</button>
+  </div>
+  <div id="categoryList"></div>
+  <hr>
+  <p>📍 סניפים ושעות פתיחה</p>
+  <p>☎ יצירת קשר</p>
+  <p>Instagram</p>
+</nav>
+
+<main class="container">
+  <div class="hero" id="hero">
+    <div class="slide active">
+      <h1>מבצעים מיוחדים</h1>
+      <p>ההצעות המשתלמות ביותר במקום אחד</p>
+      <button class="gold-btn" onclick="document.getElementById('offers').scrollIntoView({behavior:'smooth'})">לכל המבצעים</button>
+    </div>
+    <div class="slide">
+      <h1>טלוויזיות ומסכים</h1>
+      <p>מגוון דגמים ומבצעים מיוחדים</p>
+      <button class="gold-btn" onclick="showCategory('טלוויזיות ואודיו')">לצפייה במוצרים</button>
+    </div>
+    <div class="slide">
+      <h1>מזגנים ומיזוג אוויר</h1>
+      <p>פתרונות מיזוג לבית ולמשרד</p>
+      <button class="gold-btn" onclick="showCategory('מזגנים ומיזוג אוויר')">לצפייה במוצרים</button>
+    </div>
+    <div class="slide">
+      <h1>מכונות כביסה ומייבשים</h1>
+      <p>מבחר מוצרי כביסה במחירים מיוחדים</p>
+      <button class="gold-btn" onclick="showCategory('מכונות כביסה ומייבשים')">לצפייה במוצרים</button>
+    </div>
+    <div class="slide">
+      <h1>סמארטפונים וגיימינג</h1>
+      <p>מוצרים חדשים ומבצעים נבחרים</p>
+      <button class="gold-btn" onclick="showCategory('סמארטפונים וגיימינג')">לצפייה במוצרים</button>
+    </div>
+    <div class="arrows">
+      <button class="icon-btn" onclick="changeSlide(-1)">❯</button>
+      <button class="icon-btn" onclick="changeSlide(1)">❮</button>
+    </div>
+    <div class="dots" id="dots"></div>
+  </div>
+
+  <section class="grid">
+    <div class="promo"><h3>טלוויזיות</h3><p>מבצעים ומוצרים נבחרים</p></div>
+    <div class="promo"><h3>מזגנים</h3><p>מבחר פתרונות מיזוג</p></div>
+    <div class="promo"><h3>מכונות כביסה</h3><p>הצעות מיוחדות</p></div>
+  </section>
+
+  <section id="offers">
+    <div class="section-title"><h2>מבצעים חמים 🔥</h2><span>לכל המבצעים ←</span></div>
+    <div class="products" id="products"></div>
+  </section>
+
+  <section>
+    <h2 style="color:var(--gold)">קנייה לפי קטגוריה</h2>
+    <div class="grid" id="categoryTiles"></div>
+  </section>
+
+  <section>
+    <h2 style="color:var(--gold)">הנמכרים ביותר</h2>
+    <div class="products" id="bestSellers"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div><h3>מידע על החנות</h3><p>אודות</p><p>שעות פעילות</p><p>תקנון ומדיניות</p></div>
+    <div><h3>שירות לקוחות</h3><p>יצירת קשר</p><p>משלוחים והחזרות</p><p>אחריות</p></div>
+    <div><h3>סניפים ורשתות חברתיות</h3><p>📍 מיקום הסניפים</p><p>☎ מספר טלפון</p><p>Instagram</p></div>
+  </div>
+</footer>
+
+<script>
+const categories = {
+  "טלוויזיות ואודיו": ["טלוויזיות חכמות","OLED / QLED","מקרנים","סאונדברים","אביזרי טלוויזיה"],
+  "סמארטפונים וגיימינג": ["טלפונים סלולריים","קונסולות משחק","אביזרי גיימינג","אוזניות","שעונים חכמים"],
+  "מזגנים ומיזוג אוויר": ["מזגנים עיליים","מזגני אינוורטר","מזגנים ניידים","מאווררים"],
+  "מכונות כביסה ומייבשים": ["מכונות פתח קדמי","מכונות פתח עליון","מייבשי כביסה","מכונות משולבות"],
+  "מקררים ומקפיאים": ["מקררים 2 דלתות","מקררים 4 דלתות","Side by Side","מקפיאים"],
+  "תנורים ומוצרי מטבח": ["תנורים","כיריים","מדיחי כלים","מיקרוגלים","קולטי אדים"],
+  "מוצרי חשמל קטנים": ["מכונות קפה","קומקומים","מיקסרים","בלנדרים","מגהצים"],
+  "שואבי אבק וניקיון": ["שואבים רובוטיים","שואבים אלחוטיים","שואבים שוטפים"],
+  "מחשבים וציוד היקפי": ["מחשבים ניידים","מסכי מחשב","מדפסות","ציוד רשת"],
+  "בית חכם ותאורה": ["תאורת LED","מפסקים חכמים","מצלמות אבטחה"],
+  "מבצעים והנחות": ["מבצעי השבוע","חיסול מלאי","עודפים"]
+};
+
+function toggleMenu() {
+  document.getElementById("sidebar").classList.toggle("open");
+  document.getElementById("overlay").classList.toggle("show");
+}
+
+const categoryList = document.getElementById("categoryList");
+Object.entries(categories).forEach(([name, subs], i) => {
+  const btn = document.createElement("button");
+  btn.className = "category";
+  btn.textContent = name + "  ⌄";
+  const sub = document.createElement("div");
+  sub.className = "submenu";
+  subs.forEach(item => {
+    const a = document.createElement("a");
+    a.href = "#";
+    a.textContent = item;
+    a.onclick = e => { e.preventDefault(); showCategory(name); };
+    sub.appendChild(a);
+  });
+  btn.onclick = () => sub.classList.toggle("open");
+  categoryList.append(btn, sub);
+});
+
+function showCategory(name) {
+  alert("קטגוריה: " + name + "\nעמוד הקטגוריה יתווסף בהמשך.");
+}
+
+let current = 0;
+const slides = [...document.querySelectorAll(".slide")];
+const dots = document.getElementById("dots");
+slides.forEach((_, i) => {
+  const dot = document.createElement("button");
+  dot.className = "dot";
+  dot.setAttribute("aria-label", "באנר " + (i + 1));
+  dot.onclick = () => goToSlide(i);
+  dots.appendChild(dot);
+});
+function goToSlide(i) {
+  slides[current].classList.remove("active");
+  current = (i + slides.length) % slides.length;
+  slides[current].classList.add("active");
+  [...dots.children].forEach((d,n) => d.classList.toggle("active", n === current));
+}
+function changeSlide(step) { goToSlide(current + step); resetTimer(); }
+goToSlide(0);
+let timer = setInterval(() => goToSlide(current + 1), 5000);
+function resetTimer() {
+  clearInterval(timer);
+  timer = setInterval(() => goToSlide(current + 1), 5000);
+}
+const hero = document.getElementById("hero");
+let startX = 0;
+hero.addEventListener("touchstart", e => startX = e.touches[0].clientX, {passive:true});
+hero.addEventListener("touchend", e => {
+  const diff = e.changedTouches[0].clientX - startX;
+  if (Math.abs(diff) > 45) changeSlide(diff > 0 ? -1 : 1);
+});
+
+function renderProducts(id) {
+  const target = document.getElementById(id);
+  for (let i = 1; i <= 4; i++) {
+    const card = document.createElement("article");
+    card.className = "product";
+    card.innerHTML = `
+      <div class="placeholder">מקום לתמונת מוצר</div>
+      <h3>מוצר לדוגמה ${i}</h3>
+      <p class="old">₪ 1,499</p>
+      <p class="price">₪ 1,199</p>
+      <span class="discount">20% הנחה</span><br>
+      <button class="gold-btn" onclick="alert('סל הקניות יתווסף בהמשך')">הוספה לסל</button>`;
+    target.appendChild(card);
+  }
+}
+renderProducts("products");
+renderProducts("bestSellers");
+
+const tiles = document.getElementById("categoryTiles");
+Object.keys(categories).slice(0,9).forEach(name => {
+  const div = document.createElement("div");
+  div.className = "promo";
+  div.innerHTML = `<h3></h3><p>לצפייה בכל המוצרים ←</p>`;
+  div.querySelector("h3").textContent = name;
+  div.style.cursor = "pointer";
+  div.onclick = () => showCategory(name);
+  tiles.appendChild(div);
+});
+</script>
+</body>
+</html>
