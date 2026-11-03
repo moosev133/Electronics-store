@@ -14,6 +14,8 @@ GitHub Pages activation returned HTTP 422: "Your current plan does not support G
 
 ## Updating the preview
 
+The 3 November 2026 light-palette update keeps this same Site and private audience. The original graphite/gold design has a permanent Git tag and source/graphics archive; see [Design reference](DESIGN.md).
+
 The GitHub repository is the application source of truth. The Sites checkout is a separate deployment copy at `../sites/electronics-store-preview` in the local workspace. Its `.openai/hosting.json` retains the project ID above. GitHub pushes do not automatically publish to Sites.
 
 1. Make and validate application changes in the GitHub checkout, then push the feature branch.

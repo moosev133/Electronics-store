@@ -2,7 +2,7 @@
 
 The owner plans to supply real products, categories, images, pricing and business details soon, and expects frequent incremental updates afterward.
 
-- Preserve the established premium graphite/champagne Hebrew RTL design unless a redesign is requested.
+- Preserve the approved layout, typography, graphics, spacing and interactions. The current palette is soft white/light gray with gold, centralized in `src/styles/theme.css`. Change structure only when explicitly requested. The original graphite/gold version is preserved under Git tag `design/graphite-gold-original-2026-11-03`; see `docs/DESIGN.md`.
 - Keep recurring content changes in `src/data/` and merchant configuration in `src/config/`. Do not duplicate catalog data inside page components.
 - `src/data/catalog.ts` is the editable product inventory. `src/data/products.ts` is the stable consumer entry point. Replace the data source through that boundary if importing from a spreadsheet, CMS or backend later.
 - Keep product IDs, variant IDs and route slugs stable when changing names, prices, images or descriptions. They connect saved carts, favorites and links.

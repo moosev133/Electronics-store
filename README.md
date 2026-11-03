@@ -35,7 +35,7 @@ Playwright covers desktop (1440 px), tablet (820 px), and mobile (390 px). Tests
 ## Features
 
 - 12 routed departments and relevant subcategory navigation, plus brand catalogs.
-- Hebrew-first RTL layout, local Heebo fonts, graphite/off-white/champagne design.
+- Hebrew-first RTL layout, local Heebo fonts, soft white/light gray surfaces and champagne-gold accents. The original graphite/gold design is archived; see [Design reference](docs/DESIGN.md).
 - Lightweight, skippable entrance; six-slide carousel with keyboard/touch controls and pause; reduced-motion support.
 - Data-driven product cards, new arrivals, illustrative best sellers, department promotions, and recently viewed products.
 - Multi-select category-specific filters in URL search parameters, sorting, load more and empty results. Price filters are disabled while prices are absent.
