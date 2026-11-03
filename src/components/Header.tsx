@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { asset, store } from '../config/store';
 import { useShop } from '../hooks/ShopContext';
-import { categories } from '../data/categories';
+import { selectCategories } from '../data/categories';
 import { Icon } from './Icon';
 import { Search } from './Search';
 import { MegaMenu } from './MegaMenu';
+import { navigation } from '../config/navigation';
+import { getCategory } from '../data/categories';
 export function BrandMark() {
   return (
     <Link className="brand-mark" to="/" title="עמוד הבית">
@@ -96,15 +98,17 @@ export function Header() {
               כל המחלקות
               <Icon name="down" size={13} />
             </button>
-            {categories.slice(0, 6).map((c) => (
+            {selectCategories(navigation.categories).map((c) => (
               <NavLink key={c.slug} to={`/category/${c.slug}`}>
                 {c.shortName}
               </NavLink>
             ))}
-            <NavLink className="nav-offers" to="/category/offers">
-              <Icon name="sparkles" size={15} />
-              מבצעים
-            </NavLink>
+            {getCategory(navigation.promotionCategory) && (
+              <NavLink className="nav-offers" to={`/category/${navigation.promotionCategory}`}>
+                <Icon name="sparkles" size={15} />
+                {getCategory(navigation.promotionCategory)?.shortName}
+              </NavLink>
+            )}
           </div>
         </nav>
       </header>

@@ -3,11 +3,13 @@ import { HeroCarousel } from '../components/HeroCarousel';
 import { ProductRail } from '../components/ProductRail';
 import { PromoBanner } from '../components/PromoBanner';
 import { Icon } from '../components/Icon';
-import { products, brands } from '../data/products';
-import { categories } from '../data/categories';
+import { products } from '../data/products';
+import { brandCatalog } from '../data/brands';
+import { selectCategories, getCategory } from '../data/categories';
 import { productImageSet, asset, brandAsset } from '../config/store';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { useShop } from '../hooks/ShopContext';
+import { homepage, serviceHighlights } from '../data/homepage';
 export default function HomePage() {
   usePageMeta('טכנולוגיה שנבחרת במחשבה');
   const { recent } = useShop();
@@ -22,32 +24,7 @@ export default function HomePage() {
       </div>
       <HeroCarousel />
       <div className="service-strip">
-        {[
-          {
-            icon: 'truck',
-            title: 'משלוחים ואיסוף',
-            text: 'כל המידע, במקום אחד',
-            route: 'delivery',
-          },
-          {
-            icon: 'shield',
-            title: 'קונים עם כל המידע',
-            text: 'מפרטים, אפשרויות ואחריות',
-            route: 'warranty',
-          },
-          {
-            icon: 'headphones',
-            title: 'יש עם מי לדבר',
-            text: 'הכירו את ערוצי השירות',
-            route: 'service',
-          },
-          {
-            icon: 'heart',
-            title: 'הבחירות שלכם נשמרות',
-            text: 'מועדפים וסל אישי במכשיר',
-            route: 'demo',
-          },
-        ].map((s) => (
+        {serviceHighlights.map((s) => (
           <Link to={`/info/${s.route}`} key={s.icon}>
             <Icon name={s.icon} size={27} />
             <span>
@@ -69,7 +46,7 @@ export default function HomePage() {
           </Link>
         </div>
         <div className="category-grid">
-          {categories.slice(0, 8).map((c) => (
+          {selectCategories(homepage.categoryTiles).map((c) => (
             <Link to={`/category/${c.slug}`} className="category-card" key={c.slug}>
               <div>
                 <img
@@ -91,12 +68,12 @@ export default function HomePage() {
         title="מבצעים חמים"
         eyebrow="נבחרו בשבילכם"
         note="תצוגת מבצעים להמחשה — מחירים והטבות יעודכנו בהמשך"
-        products={products.filter((p) => p.featured).slice(0, 8)}
+        products={products.filter((p) => p.featured).slice(0, homepage.productsPerRail)}
         href="/category/offers"
       />
       <section className="secondary-promos reveal" aria-label="גלו מחלקות נוספות">
-        {['air-conditioners', 'washing-machines', 'refrigerators'].map((slug) => (
-          <PromoBanner key={slug} category={categories.find((c) => c.slug === slug)!} compact />
+        {selectCategories(homepage.secondaryPromotions).map((category) => (
+          <PromoBanner key={category.slug} category={category} compact />
         ))}
       </section>
       <ProductRail
@@ -104,37 +81,38 @@ export default function HomePage() {
         eyebrow="רעננות שמרגישים"
         products={products
           .filter((p) => p.isNew)
-          .filter((_, i) => i % 2 === 1)
-          .reverse()
-          .slice(0, 8)}
+          .sort((a, b) => b.addedAt.localeCompare(a.addedAt))
+          .slice(0, homepage.productsPerRail)}
         href="/catalog?new=1"
       />
-      <section className="editorial-banner reveal">
-        <img
-          src={asset('assets/hero-living.webp')}
-          alt="סלון בהדמיה עם טלוויזיה רחבה — תמונת אווירה"
-          width="1672"
-          height="941"
-          loading="lazy"
-        />
-        <div>
-          <span className="eyebrow">הבית. בגרסה הבאה שלו.</span>
-          <h2>
-            עיצוב שמרגישים.
-            <br />
-            טכנולוגיה שחיים.
-          </h2>
-          <p>
-            גלו את המוצרים שמשתלבים בחלל שלכם
-            <br />
-            והופכים כל יום לקצת יותר מיוחד.
-          </p>
-          <Link className="button outline" to="/category/smart-home">
-            להכיר את הבית החכם
-            <Icon name="arrowLeft" size={17} />
-          </Link>
-        </div>
-      </section>
+      {getCategory(homepage.editorial.category) && (
+        <section className="editorial-banner reveal">
+          <img
+            src={asset(homepage.editorial.image)}
+            alt={homepage.editorial.alt}
+            width="1672"
+            height="941"
+            loading="lazy"
+          />
+          <div>
+            <span className="eyebrow">{homepage.editorial.eyebrow}</span>
+            <h2>
+              {homepage.editorial.title}
+              <br />
+              {homepage.editorial.accent}
+            </h2>
+            <p>
+              {homepage.editorial.description}
+              <br />
+              {homepage.editorial.descriptionSecondLine}
+            </p>
+            <Link className="button outline" to={`/category/${homepage.editorial.category}`}>
+              {homepage.editorial.cta}
+              <Icon name="arrowLeft" size={17} />
+            </Link>
+          </div>
+        </section>
+      )}
       <section className="brands-section reveal">
         <div className="section-heading">
           <div>
@@ -147,9 +125,15 @@ export default function HomePage() {
           </Link>
         </div>
         <div className="brand-grid">
-          {brands.map((brand) => (
-            <Link to={`/brand/${brand.toLowerCase()}`} key={brand} aria-label={`מוצרי ${brand}`}>
-              <img src={brandAsset(brand)} alt={brand} width="130" height="50" loading="lazy" />
+          {brandCatalog.map((brand) => (
+            <Link to={`/brand/${brand.slug}`} key={brand.slug} aria-label={`מוצרי ${brand.name}`}>
+              <img
+                src={brandAsset(brand.name)}
+                alt={brand.name}
+                width="130"
+                height="50"
+                loading="lazy"
+              />
             </Link>
           ))}
         </div>
@@ -164,25 +148,23 @@ export default function HomePage() {
         products={products
           .filter((p) => p.demoBestSeller)
           .sort((a, b) => a.brand.localeCompare(b.brand))
-          .slice(0, 8)}
+          .slice(0, homepage.productsPerRail)}
         href="/catalog?best=1"
       />
       <div className="department-features">
-        {['tvs', 'washing-machines', 'kitchen', 'air-conditioners', 'small-appliances'].map(
-          (slug) => {
-            const c = categories.find((c) => c.slug === slug)!;
-            return (
-              <section className="department-feature reveal" key={slug}>
-                <PromoBanner category={c} />
-                <ProductRail
-                  title={`מבחר ${c.shortName}`}
-                  products={products.filter((p) => p.category === slug)}
-                  href={`/category/${slug}`}
-                />
-              </section>
-            );
-          },
-        )}
+        {selectCategories(homepage.featuredDepartments).map((c) => {
+          const slug = c.slug;
+          return (
+            <section className="department-feature reveal" key={slug}>
+              <PromoBanner category={c} />
+              <ProductRail
+                title={`מבחר ${c.shortName}`}
+                products={products.filter((p) => p.category === slug)}
+                href={`/category/${slug}`}
+              />
+            </section>
+          );
+        })}
       </div>
       <ProductRail
         title="לאחרונה צפיתם"

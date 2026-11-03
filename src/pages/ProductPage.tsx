@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { products, specLabels } from '../data/products';
+import { findBrand } from '../data/brands';
 import { getCategory } from '../data/categories';
 import { ProductGallery } from '../components/ProductGallery';
 import { ProductRail } from '../components/ProductRail';
@@ -55,7 +56,7 @@ function ProductDetail({ product: p }: { product: (typeof products)[number] }) {
       <div className="product-detail">
         <ProductGallery key={variant.id} images={gallery} />
         <div className="purchase-panel">
-          <Link className="product-brand" to={`/brand/${p.brand.toLowerCase()}`}>
+          <Link className="product-brand" to={`/brand/${findBrand(p.brand)?.slug}`}>
             {p.brand}
             <Icon name="left" size={14} />
           </Link>

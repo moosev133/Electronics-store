@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { categories, getCategory } from '../data/categories';
-import { brands, products } from '../data/products';
+import { products } from '../data/products';
+import { brandCatalog } from '../data/brands';
 import { selectProducts } from '../utilities/catalog';
 import { ProductCard } from '../components/ProductCard';
 import { ProductFilters } from '../components/ProductFilters';
@@ -15,7 +16,7 @@ export default function CatalogPage() {
   const [params, setParams] = useSearchParams();
   const [filtersOpen, setFiltersOpen] = useState(false);
   const category = getCategory(slug),
-    brand = brands.find((b) => b.toLowerCase() === brandSlug);
+    brand = brandCatalog.find((b) => b.slug === brandSlug)?.name;
   const source = brand ? products.filter((p) => p.brand === brand) : products;
   const scoped = source.filter((p) => !slug || (slug === 'offers' ? p.sale : p.category === slug));
   const result = selectProducts(source, params, slug);
@@ -117,11 +118,13 @@ export default function CatalogPage() {
               {sub}
             </button>
           )) ||
-          categories.slice(0, -1).map((c) => (
-            <Link key={c.slug} to={`/category/${c.slug}`}>
-              {c.shortName}
-            </Link>
-          ))
+          categories
+            .filter((category) => category.slug !== 'offers')
+            .map((c) => (
+              <Link key={c.slug} to={`/category/${c.slug}`}>
+                {c.shortName}
+              </Link>
+            ))
         )}
       </nav>
       <div className="catalog-layout">

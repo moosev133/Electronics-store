@@ -46,9 +46,11 @@ Playwright covers desktop (1440 px), tablet (820 px), and mobile (390 px). Tests
 
 ## Configure the store
 
+For recurring updates, use [Updating the store](docs/UPDATING-THE-STORE.md). Product records, category definitions, homepage banners, navigation, brands and information-page copy each have dedicated editable files. Run `npm run check:content` to catch broken references and missing images.
+
 Edit **`src/config/store.ts`** for the name, logo, phone, email, address, hours, Instagram and service details. No identity or contact information is invented. Empty fields have informative placeholders rather than fake links. Set `VITE_SITE_URL` to the production origin to enable canonical URLs. Update `index.html`'s static social metadata with the final identity before launch.
 
-Catalogs are in `src/data/products.ts` and `src/data/categories.ts`; interfaces are in `src/types/catalog.ts`. Every seeded product uses a `DEMO-…` model, synthetic illustrative specifications and a generic illustration. Brand assignments demonstrate filtering and are **not verified product associations**. Prices, discounts, stock, reviews and warranty claims are intentionally absent. Before commercial use, replace these entries with verified inventory, licensed model imagery, merchant policies and business information.
+Product records are in `src/data/catalog.ts` (exported through `src/data/products.ts`), and departments are in `src/data/categories.ts`; interfaces are in `src/types/catalog.ts`. Every seeded product uses a `DEMO-…` model, synthetic illustrative specifications and a generic illustration. Brand assignments demonstrate filtering and are **not verified product associations**. Prices, discounts, stock, reviews and warranty claims are intentionally absent. Before commercial use, replace these entries with verified inventory, licensed model imagery, merchant policies and business information.
 
 `price`, `previousPrice`, `discount`, variant prices and availability are typed for future catalog ingestion. Only publish verified information. Do not add Product/Offer structured data while this catalog is demonstrative.
 

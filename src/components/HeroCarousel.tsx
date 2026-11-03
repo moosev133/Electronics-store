@@ -3,98 +3,9 @@ import { Link } from 'react-router-dom';
 import { asset } from '../config/store';
 import { Icon } from './Icon';
 import { useReducedMotion } from '../hooks/useReducedMotion';
-const slides = [
-  {
-    category: 'tvs',
-    eyebrow: 'חוויה גדולה. עד הפרט הקטן.',
-    title: (
-      <>
-        לראות מעבר.
-        <br />
-        <em>להרגיש יותר.</em>
-      </>
-    ),
-    description: 'הכניסו הביתה תמונה, צליל ועיצוב שמרגשים בכל פעם מחדש.',
-    cta: 'לגלות את עולם הטלוויזיות',
-    image: 'hero-living.webp',
-    scene: true,
-  },
-  {
-    category: 'offers',
-    eyebrow: 'הבחירות של השבוע',
-    title: (
-      <>
-        הטכנולוגיה שתאהבו.
-        <br />
-        <em>במקום אחד.</em>
-      </>
-    ),
-    description: 'מבחר מוצרי ההמחשה שלנו, מהסלון ועד המטבח. מחירים יעודכנו בקרוב.',
-    cta: 'למבחר השבוע',
-    image: 'products/laptop.webp',
-    scene: false,
-  },
-  {
-    category: 'air-conditioners',
-    eyebrow: 'הנוחות מתחילה כאן',
-    title: (
-      <>
-        האווירה הנכונה.
-        <br />
-        <em>בכל עונה.</em>
-      </>
-    ),
-    description: 'גלו פתרונות מיזוג שמשתלבים בחיים ובחלל שלכם.',
-    cta: 'למחלקת מיזוג אוויר',
-    image: 'products/ac.webp',
-    scene: false,
-  },
-  {
-    category: 'washing-machines',
-    eyebrow: 'חושבים על השגרה שלכם',
-    title: (
-      <>
-        פחות מטלות.
-        <br />
-        <em>יותר רגעים.</em>
-      </>
-    ),
-    description: 'גלו את מחלקת מכונות הכביסה והמייבשים.',
-    cta: 'לעולם הכביסה',
-    image: 'products/washer.webp',
-    scene: false,
-  },
-  {
-    category: 'refrigerators',
-    eyebrow: 'עיצוב פוגש שימושיות',
-    title: (
-      <>
-        מקום לכל מה שטוב.
-        <br />
-        <em>בית לכל הטעמים.</em>
-      </>
-    ),
-    description: 'מקררים ומקפיאים למטבח שאתם מדמיינים.',
-    cta: 'למבחר המקררים',
-    image: 'products/fridge.webp',
-    scene: false,
-  },
-  {
-    category: 'smartphones',
-    eyebrow: 'מחוברים לדברים החשובים',
-    title: (
-      <>
-        העולם שלכם.
-        <br />
-        <em>בכף היד.</em>
-      </>
-    ),
-    description: 'סמארטפונים, גיימינג וכל מה שמחבר ביניהם.',
-    cta: 'לסלולר וגיימינג',
-    image: 'products/phone.webp',
-    scene: false,
-  },
-];
+import { heroSlides, homepage } from '../data/homepage';
+import { getCategory } from '../data/categories';
+const slides = heroSlides.filter((slide) => getCategory(slide.category));
 export function HeroCarousel() {
   const [index, setIndex] = useState(0),
     [paused, setPaused] = useState(false),
@@ -104,16 +15,17 @@ export function HeroCarousel() {
     touch = useRef(0);
   const slide = slides[index];
   useEffect(() => {
-    if (paused || hover || focused || reduced) return;
+    if (paused || hover || focused || reduced || slides.length < 2) return;
     const timer = setInterval(() => {
       if (!document.hidden) setIndex((i) => (i + 1) % slides.length);
-    }, 5000);
+    }, homepage.rotationMilliseconds);
     return () => clearInterval(timer);
   }, [paused, hover, focused, reduced]);
   function change(i: number) {
     setPaused(true);
     setIndex((i + slides.length) % slides.length);
   }
+  if (!slide) return null;
   return (
     <section
       className={`hero ${slide.scene ? 'hero-scene' : 'hero-product'}`}
@@ -147,16 +59,16 @@ export function HeroCarousel() {
       <img
         key={slide.image}
         className="hero-image"
-        src={asset(`assets/${slide.image}`)}
+        src={asset(slide.image)}
         srcSet={
-          slide.scene
-            ? `${asset('assets/hero-living-900.webp')} 900w, ${asset('assets/hero-living.webp')} 1672w`
+          slide.smallImage
+            ? `${asset(slide.smallImage)} 900w, ${asset(slide.image)} 1672w`
             : undefined
         }
         sizes={slide.scene ? '(max-width: 640px) 100vw, 1400px' : undefined}
         width="1672"
         height="941"
-        alt={slide.scene ? 'הדמיית מסך רחב בחלל מגורים בגווני גרפיט וזהב' : 'מוצר להמחשת המחלקה'}
+        alt={slide.alt}
         fetchPriority={index === 0 ? 'high' : 'auto'}
       />
       <div className="hero-shade" />
@@ -165,7 +77,11 @@ export function HeroCarousel() {
           <i />
           {slide.eyebrow}
         </span>
-        <h1>{slide.title}</h1>
+        <h1>
+          {slide.title}
+          <br />
+          <em>{slide.accent}</em>
+        </h1>
         <p>{slide.description}</p>
         <Link className="button gold" to={`/category/${slide.category}`}>
           {slide.cta}
@@ -187,7 +103,7 @@ export function HeroCarousel() {
         </div>
         <div className="hero-count">
           <span dir="ltr">
-            0{index + 1} <b>/ 06</b>
+            {String(index + 1).padStart(2, '0')} <b>/ {String(slides.length).padStart(2, '0')}</b>
           </span>
           <span className="control-divider" />
           <button

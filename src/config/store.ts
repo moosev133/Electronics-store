@@ -1,3 +1,5 @@
+import { responsiveImages } from '../data/responsiveImages';
+import { findBrand } from '../data/brands';
 import type { Locale } from '../types/catalog';
 
 // The single configuration point for verified merchant information. Empty values never become fake links.
@@ -24,14 +26,14 @@ export const localeSettings: Record<Locale, { dir: 'rtl' | 'ltr'; currency: stri
 };
 export const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
 export const productImageSet = (path: string) =>
-  path.startsWith('assets/products/')
+  responsiveImages[path]
     ? [240, 480]
+        .filter((width) => width < responsiveImages[path])
         .map((width) => `${asset(path.replace('.webp', `-${width}.webp`))} ${width}w`)
-        .concat(`${asset(path)} 900w`)
+        .concat(`${asset(path)} ${responsiveImages[path]}w`)
         .join(', ')
     : undefined;
-export const brandAsset = (brand: string) =>
-  asset(`assets/brands/${brand.toLowerCase()}.${brand === 'Electra' ? 'png' : 'svg'}`);
+export const brandAsset = (brand: string) => asset(findBrand(brand)?.logo || '');
 export const priceText = (price?: number) =>
   price === undefined
     ? 'מחיר יעודכן בקרוב'

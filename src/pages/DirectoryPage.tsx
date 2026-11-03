@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { categories } from '../data/categories';
-import { brands } from '../data/products';
+import { brandCatalog } from '../data/brands';
 import { brandAsset } from '../config/store';
 import { PromoBanner } from '../components/PromoBanner';
 import { usePageMeta } from '../hooks/usePageMeta';
@@ -19,9 +19,9 @@ export default function DirectoryPage({ showBrands = false }: { showBrands?: boo
       </div>
       {showBrands ? (
         <div className="brand-grid directory-brands">
-          {brands.map((brand) => (
-            <Link key={brand} to={`/brand/${brand.toLowerCase()}`}>
-              <img src={brandAsset(brand)} alt={brand} width="160" height="70" />
+          {brandCatalog.map((brand) => (
+            <Link key={brand.slug} to={`/brand/${brand.slug}`}>
+              <img src={brandAsset(brand.name)} alt={brand.name} width="160" height="70" />
             </Link>
           ))}
         </div>

@@ -37,3 +37,9 @@ Largest Contentful Paint in that run was 2.9 s. These are local lab results, not
 `npm audit --omit=dev` reports **0 vulnerabilities**. The full audit reports **11 moderate development-only advisories** in the current ESLint/TypeScript-ESLint dependency chain (primarily minimatch); no high or critical advisories remain. Current tool versions were installed and verified; unsafe dependency overrides or suggested downgrades were not forced. The static production bundle does not include those lint tools.
 
 Store identity/contact information, verified catalog/pricing/stock, business policies, accounts, backend and payment provider remain intentionally unconfigured. Browsers beyond Chromium and real physical devices were not exercised. The user's old Codespaces preview URL returned 404; local source testing was completed instead. Public deployment requires the documented GitHub Pages setup/workflow.
+
+## Recurring-update refactor (2026-11-03)
+
+Product records were made independent of category ordering. Homepage campaigns, navigation, brand assets and information-page copy now live in editable data/configuration files. Content validation checks relationships, IDs, dates, prices, logos and image derivatives; filtering/cart tests use a fixed fixture independent of merchant inventory.
+
+After the refactor, strict TypeScript, lint, all 10 unit/content tests and the production build passed. The full desktop/tablet/mobile browser suite passed again: 34 passed, 2 intentionally skipped touch cases. No new Lighthouse measurement is claimed for this refactor. The local preview remains running for the owner to view.

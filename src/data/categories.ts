@@ -193,3 +193,10 @@ export const categories: Category[] = [
   },
 ];
 export const getCategory = (slug?: string) => categories.find((c) => c.slug === slug);
+
+// Skip stale feature references in the UI; catalog checks report them before release.
+export const selectCategories = (slugs: readonly string[]): Category[] =>
+  slugs.flatMap((slug) => {
+    const category = getCategory(slug);
+    return category ? [category] : [];
+  });
