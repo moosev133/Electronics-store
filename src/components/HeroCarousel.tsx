@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { asset } from '../config/store';
+import { asset, productImageSet } from '../config/store';
 import { Icon } from './Icon';
 import { useReducedMotion } from '../hooks/useReducedMotion';
 import { heroSlides, homepage } from '../data/homepage';
@@ -28,7 +28,7 @@ export function HeroCarousel() {
   if (!slide) return null;
   return (
     <section
-      className={`hero ${slide.scene ? 'hero-scene' : 'hero-product'}`}
+      className="hero"
       aria-label="מבחר המחלקות"
       aria-roledescription="קרוסלה"
       onMouseEnter={() => setHover(true)}
@@ -60,18 +60,13 @@ export function HeroCarousel() {
         key={slide.image}
         className="hero-image"
         src={asset(slide.image)}
-        srcSet={
-          slide.smallImage
-            ? `${asset(slide.smallImage)} 900w, ${asset(slide.image)} 1672w`
-            : undefined
-        }
-        sizes={slide.scene ? '(max-width: 640px) 100vw, 1400px' : undefined}
-        width="1672"
-        height="941"
+        srcSet={productImageSet(slide.image)}
+        sizes="(max-width: 640px) 74vw, (max-width: 1490px) 42vw, 626px"
+        width="900"
+        height="900"
         alt={slide.alt}
         fetchPriority={index === 0 ? 'high' : 'auto'}
       />
-      <div className="hero-shade" />
       <div className="hero-copy" key={index}>
         <span className="eyebrow">
           <i />

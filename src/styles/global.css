@@ -482,37 +482,26 @@ strong {
   height: 505px;
   position: relative;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 24px;
+  border: 1px solid var(--hero-border);
   background: var(--hero-gradient);
+  box-shadow:
+    0 12px 32px var(--shadow-soft),
+    inset 0 1px 0 var(--surface-white);
   isolation: isolate;
 }
 .hero-image {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  inset: 0;
-  z-index: -3;
+  width: 42%;
+  height: 80%;
+  inset: 8% auto auto 5%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  z-index: 0;
   animation: fade-in 0.7s ease;
 }
-.hero-scene .hero-image {
-  width: 50%;
-  height: auto;
-  aspect-ratio: 1672 / 941;
-  inset: 50% auto auto 3%;
-  transform: translateY(-50%);
-  object-fit: contain;
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  box-shadow: 0 14px 36px var(--shadow-raised);
-}
-.hero-shade {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-}
 .hero-copy {
+  position: relative;
   padding: 67px 62px;
   width: 48%;
   animation: slide-in 0.55s ease;
@@ -618,16 +607,6 @@ strong {
 .hero-count .icon-button {
   width: 32px;
   height: 32px;
-}
-.hero-product .hero-image {
-  width: 42%;
-  height: 80%;
-  left: 5%;
-  right: auto;
-  top: 8%;
-  object-fit: contain;
-  border-radius: 16px;
-  mix-blend-mode: multiply;
 }
 .service-strip {
   display: grid;
@@ -2712,26 +2691,23 @@ strong {
     font-size: 9px;
   }
   .hero {
-    height: 565px;
-    border-radius: 8px;
+    height: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(370px, auto) 240px auto;
+    border-radius: 20px;
   }
   .hero-image {
-    height: 68%;
-    top: auto;
-    bottom: 0;
-    object-position: 26% 55%;
-    object-fit: cover;
-  }
-  .hero-scene .hero-image {
-    width: calc(100% - 36px);
-    max-width: 350px;
-    height: auto;
-    inset: auto auto 66px 50%;
-    transform: translateX(-50%);
-    border-radius: 12px;
+    position: relative;
+    grid-area: 2 / 1;
+    inset: auto;
+    width: 76%;
+    height: 100%;
+    justify-self: center;
   }
   .hero-copy {
-    padding: 28px 26px;
+    grid-area: 1 / 1;
+    padding: 28px 26px 12px;
     width: 100%;
     position: relative;
   }
@@ -2761,9 +2737,10 @@ strong {
     margin-top: 8px;
   }
   .hero-controls {
-    bottom: 13px;
-    right: 23px;
-    left: 15px;
+    grid-area: 3 / 1;
+    position: relative;
+    inset: auto;
+    margin: 12px 20px 18px;
   }
   .hero-count {
     font-size: 9px;
@@ -2772,13 +2749,6 @@ strong {
   .hero-count .icon-button {
     width: 29px;
     height: 29px;
-  }
-  .hero-product .hero-image {
-    top: auto;
-    bottom: 45px;
-    left: 15%;
-    width: 70%;
-    height: 42%;
   }
   .service-strip {
     grid-template-columns: repeat(2, 1fr);
@@ -3649,7 +3619,7 @@ strong {
   filter: none;
 }
 .category-hero > img:not(.brand-hero-image),
-.hero-product .hero-image,
+.hero-image,
 .mega-image img {
   mix-blend-mode: multiply;
 }
@@ -3716,8 +3686,7 @@ strong {
     height: 26px;
   }
   .hero-controls {
-    left: 12px;
-    right: 20px;
+    margin-inline: 16px;
   }
 }
 

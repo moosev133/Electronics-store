@@ -7,9 +7,7 @@ export interface HeroSlide {
   description: string;
   cta: string;
   image: string;
-  smallImage?: string;
   alt: string;
-  scene: boolean;
 }
 
 export const heroSlides: HeroSlide[] = [
@@ -20,10 +18,8 @@ export const heroSlides: HeroSlide[] = [
     accent: 'להרגיש יותר.',
     description: 'הכניסו הביתה תמונה, צליל ועיצוב שמרגשים בכל פעם מחדש.',
     cta: 'לגלות את עולם הטלוויזיות',
-    image: 'assets/hero-living.webp',
-    scene: true,
-    smallImage: 'assets/hero-living-900.webp',
-    alt: 'הדמיית מסך רחב בחלל מגורים בגווני גרפיט וזהב',
+    image: 'assets/products/tv-front.webp',
+    alt: 'הדמיית טלוויזיה עם מסך בגווני גרפיט וזהב',
   },
   {
     category: 'offers',
@@ -33,8 +29,7 @@ export const heroSlides: HeroSlide[] = [
     description: 'מבחר מוצרי ההמחשה שלנו, מהסלון ועד המטבח. מחירים יעודכנו בקרוב.',
     cta: 'למבחר השבוע',
     image: 'assets/products/laptop.webp',
-    scene: false,
-    alt: 'מוצר להמחשת המחלקה',
+    alt: 'הדמיית מחשב נייד בגוון גרפיט',
   },
   {
     category: 'air-conditioners',
@@ -44,8 +39,7 @@ export const heroSlides: HeroSlide[] = [
     description: 'גלו פתרונות מיזוג שמשתלבים בחיים ובחלל שלכם.',
     cta: 'למחלקת מיזוג אוויר',
     image: 'assets/products/ac.webp',
-    scene: false,
-    alt: 'מוצר להמחשת המחלקה',
+    alt: 'הדמיית מזגן עילי לבן',
   },
   {
     category: 'washing-machines',
@@ -55,8 +49,7 @@ export const heroSlides: HeroSlide[] = [
     description: 'גלו את מחלקת מכונות הכביסה והמייבשים.',
     cta: 'לעולם הכביסה',
     image: 'assets/products/washer.webp',
-    scene: false,
-    alt: 'מוצר להמחשת המחלקה',
+    alt: 'הדמיית מכונת כביסה פתח קדמי',
   },
   {
     category: 'refrigerators',
@@ -66,8 +59,7 @@ export const heroSlides: HeroSlide[] = [
     description: 'מקררים ומקפיאים למטבח שאתם מדמיינים.',
     cta: 'למבחר המקררים',
     image: 'assets/products/fridge.webp',
-    scene: false,
-    alt: 'מוצר להמחשת המחלקה',
+    alt: 'הדמיית מקרר ארבע דלתות בגוון גרפיט',
   },
   {
     category: 'smartphones',
@@ -77,8 +69,7 @@ export const heroSlides: HeroSlide[] = [
     description: 'סמארטפונים, גיימינג וכל מה שמחבר ביניהם.',
     cta: 'לסלולר וגיימינג',
     image: 'assets/products/phone.webp',
-    scene: false,
-    alt: 'מוצר להמחשת המחלקה',
+    alt: 'הדמיית סמארטפון מלפנים ומאחור',
   },
 ];
 

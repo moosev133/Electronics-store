@@ -25,7 +25,11 @@
 
   --gold-gradient: linear-gradient(120deg, #efdfbd 0%, #e4cfa5 52%, #d7bc87 100%);
   --gold-hover-gradient: linear-gradient(120deg, #ead5aa 0%, #ddc08b 58%, #cfad6d 100%);
-  --hero-gradient: radial-gradient(ellipse at 25% 45%, #e3e7e0, #f7f8f5 70%);
+  --hero-gradient:
+    radial-gradient(ellipse at 85% 8%, rgba(230, 207, 158, 0.28), transparent 54%),
+    radial-gradient(ellipse at 16% 76%, rgba(210, 215, 212, 0.58), transparent 60%),
+    linear-gradient(125deg, #f1f3f1 0%, #ffffff 50%, #f8f5ee 100%);
+  --hero-border: #dfdcd2;
   --category-gradient: linear-gradient(145deg, #f8f9f6, #e7eae4);
   --promo-gradient: linear-gradient(120deg, #fafbf8 0%, #edf0ea 52%, #e2e7de 100%);
   --category-hero-gradient: linear-gradient(120deg, #e4e9e1, #f7f8f5 64%);

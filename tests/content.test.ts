@@ -120,7 +120,6 @@ describe('editable store content', () => {
     for (const brand of brandCatalog) if (brand.logo) localImage(brand.logo);
     for (const slide of heroSlides) {
       localImage(slide.image);
-      if (slide.smallImage) localImage(slide.smallImage);
     }
     localImage(homepage.editorial.image);
     for (const item of serviceHighlights)

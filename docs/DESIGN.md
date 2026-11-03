@@ -45,4 +45,12 @@ Keep the HTML `theme-color` and SVG favicon colors aligned when changing the pal
 
 ## Image clarity refinement
 
-The owner subsequently requested visible product corners and clearer homepage pictures. The radial edge masks and hero overlays were removed. Product images blend with the studio surface using `multiply`, preserving their full silhouette. The TV room image now sits in a softly framed, uncropped panel beside the copy on desktop and below it on mobile. The mobile panel is capped at 350px wide to leave space beneath the copy. Original image files, colors, typography and carousel behavior remain intact. Do not reintroduce edge fading over the products.
+The owner subsequently requested visible product corners and clearer homepage pictures. The radial edge masks and hero overlays were removed. Product images blend with the studio surface using `multiply`, preserving their full silhouette. Do not reintroduce edge fading over the products.
+
+## Consistent carousel card
+
+On 3 November 2026 the owner requested one consistent presentation for every carousel slide, without the TV's dark room background. All six slides now use the existing studio product images within one rounded card. The TV uses `assets/products/tv-front.webp`; the room image remains available in the separate editorial section and the original design archive.
+
+The shared `--hero-gradient` and `--hero-border` tokens in `src/styles/theme.css` define the soft white, light gray and champagne background. A fine border and subtle shadow distinguish the complete section from the page. Desktop copy and products retain the existing two-column composition. On phones, separate grid rows keep the text, full product silhouette and controls apart, including slides with longer titles. The carousel interactions, catalog and product specifications are unchanged.
+
+Use studio product images for future slides in `src/data/homepage.ts`. `HeroCarousel` applies the same containment and responsive image handling to every slide; avoid separate room-scene styling or overlays over product corners.
