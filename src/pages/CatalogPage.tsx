@@ -8,9 +8,10 @@ import { ProductCard } from '../components/ProductCard';
 import { ProductFilters } from '../components/ProductFilters';
 import { Modal } from '../components/Modal';
 import { Icon } from '../components/Icon';
-import { productImageSet, asset, brandAsset } from '../config/store';
+import { productImageSet, asset } from '../config/store';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { EmptyState } from '../components/EmptyState';
+import { BrandMark } from '../components/BrandMark';
 export default function CatalogPage() {
   const { slug, brand: brandSlug } = useParams();
   const [params, setParams] = useSearchParams();
@@ -62,8 +63,8 @@ export default function CatalogPage() {
         <div>
           <span className="eyebrow">{category?.eyebrow || 'טכנולוגיה שנבחרת במחשבה'}</span>
           <h1>{title}</h1>
-          <p>{category?.description || 'גלו, סננו ושמרו את הבחירות שלכם מתוך קטלוג ההמחשה.'}</p>
-          <small>מוצרים ומפרטים להמחשה · מחירים ומלאי טרם אומתו</small>
+          <p>{category?.description || 'גלו, סננו ושמרו את הבחירות שלכם מתוך הקטלוג.'}</p>
+          <small>מחירים ומלאי יעודכנו בהמשך · מוצרי הדגמה מסומנים בנפרד</small>
         </div>
         {category ? (
           <img
@@ -75,13 +76,7 @@ export default function CatalogPage() {
             height="220"
           />
         ) : brand ? (
-          <img
-            className="brand-hero-image"
-            src={brandAsset(brand)}
-            alt={brand}
-            width="200"
-            height="100"
-          />
+          <BrandMark name={brand} className="brand-hero-image" width={200} height={100} />
         ) : (
           <Icon name="sparkles" size={80} />
         )}
@@ -139,7 +134,7 @@ export default function CatalogPage() {
         <div className="catalog-results">
           <div className="catalog-toolbar">
             <p>
-              <strong>{result.length}</strong> מוצרים בקטלוג ההמחשה
+              <strong>{result.length}</strong> מוצרים בקטלוג
             </p>
             <button className="mobile-filter button outline" onClick={() => setFiltersOpen(true)}>
               <Icon name="filters" size={17} />

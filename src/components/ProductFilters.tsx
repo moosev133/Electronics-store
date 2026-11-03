@@ -95,7 +95,9 @@ export function ProductFilters({
         <input type="range" aria-label="טווח מחירים — לא זמין" />
         <p>סינון לפי מחיר יהיה זמין לאחר עדכון המחירים.</p>
       </fieldset>
-      <p className="filter-disclaimer">מאפייני המוצרים בקטלוג זה הם נתוני הדגמה בלבד.</p>
+      <p className="filter-disclaimer">
+        מוצרי הדגמה מסומנים בנפרד. מחירים וזמינות מלאי יעודכנו בהמשך.
+      </p>
     </div>
   );
 }

@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useShop } from '../hooks/ShopContext';
 import { findProduct, products } from '../data/products';
-import { productImageSet, asset, priceText } from '../config/store';
+import { priceText } from '../config/store';
 import { cartTotal } from '../utilities/catalog';
 import { EmptyState } from '../components/EmptyState';
 import { Quantity } from '../components/Quantity';
 import { Icon } from '../components/Icon';
+import { ProductPhoto } from '../components/ProductPhoto';
 import { usePageMeta } from '../hooks/usePageMeta';
 export default function CartPage() {
   const { cart, quantity, remove, storageAvailable } = useShop();
@@ -48,22 +49,29 @@ export default function CartPage() {
             return (
               <article className="cart-item" key={`${p.id}-${variant.id}`}>
                 <Link to={`/product/${p.slug}?variant=${variant.id}`}>
-                  <img
-                    src={asset((variant.image || p.images[0]).src)}
-                    srcSet={productImageSet((variant.image || p.images[0]).src)}
+                  <ProductPhoto
+                    image={variant.image || p.images[0]}
                     sizes="160px"
-                    alt={`${p.name} — להמחשה`}
-                    width="160"
-                    height="150"
+                    width={160}
+                    height={150}
                   />
                 </Link>
                 <div>
-                  <span className="eyebrow">{p.brand} · להמחשה</span>
+                  <span className="eyebrow">
+                    {p.brand}
+                    {p.demo && ' · להמחשה'}
+                  </span>
                   <h2>
                     <Link to={`/product/${p.slug}?variant=${variant.id}`}>{p.name}</Link>
                   </h2>
                   <p>
-                    {variant.label} · <bdi>{p.model}</bdi>
+                    <bdi>{variant.label}</bdi>
+                    {!variant.model && (
+                      <>
+                        {' '}
+                        · <bdi>{p.model}</bdi>
+                      </>
+                    )}
                   </p>
                   <strong>{priceText(variant.price ?? p.price)}</strong>
                   <Quantity

@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import type { Product } from '../types/catalog';
-import { productImageSet, asset, priceText } from '../config/store';
+import { priceText } from '../config/store';
 import { useShop } from '../hooks/ShopContext';
 import { Icon } from './Icon';
+import { ProductPhoto } from './ProductPhoto';
 export function ProductCard({ product: p }: { product: Product }) {
   const { favorites, toggleFavorite, add } = useShop(),
     saved = favorites.includes(p.id);
@@ -10,19 +11,17 @@ export function ProductCard({ product: p }: { product: Product }) {
     <article className="product-card">
       <div className="product-visual">
         <Link to={`/product/${p.slug}`} tabIndex={-1} aria-hidden="true">
-          <img
-            src={asset(p.images[0].src)}
-            srcSet={productImageSet(p.images[0].src)}
+          <ProductPhoto
+            image={p.images[0]}
             sizes="(max-width: 640px) 45vw, 280px"
             alt=""
-            width="360"
-            height="290"
+            width={360}
+            height={290}
             loading="lazy"
-            decoding="async"
           />
         </Link>
         <span className={`product-badge ${p.isNew ? 'new' : ''}`}>
-          {p.isNew ? 'חדש בקטלוג' : 'מבחר ההדגמה'}
+          {p.isNew ? 'חדש בקטלוג' : p.demo ? 'מבחר ההדגמה' : p.brand}
         </span>
         <button
           className={`favorite-button ${saved ? 'saved' : ''}`}
@@ -32,7 +31,7 @@ export function ProductCard({ product: p }: { product: Product }) {
         >
           <Icon name="heart" size={19} />
         </button>
-        <span className="image-note">להמחשה</span>
+        <span className="image-note">{p.images[0].demo ? 'להמחשה' : 'צילום מהקטלוג'}</span>
       </div>
       <div className="product-body">
         <div className="product-meta">
@@ -49,7 +48,7 @@ export function ProductCard({ product: p }: { product: Product }) {
           {p.discount !== undefined && <span>{p.discount}% הנחה</span>}
         </div>
         <div className="product-bottom">
-          <span>דגם ושיוך מותג להמחשה</span>
+          <span>{p.demo ? 'דגם ושיוך מותג להמחשה' : `${p.variants.length} דגמים לבחירה`}</span>
           <button
             className="add-small"
             aria-label={`הוספה לסל: ${p.name}`}

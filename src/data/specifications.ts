@@ -22,4 +22,12 @@ export const specLabels: Record<string, string> = {
   ram: 'זיכרון RAM',
   power: 'הספק',
   features: 'תכונות',
+  productDimensions: 'מידות המוצר (מ״מ)',
+  grossCapacity: 'נפח ברוטו',
+  temperature: 'טווח טמפרטורה',
+  climate: 'סיווג אקלים',
+  control: 'בקרת טמפרטורה',
+  cooling: 'מערכת קירור',
+  lighting: 'תאורה',
+  cabinet: 'מבנה',
 };

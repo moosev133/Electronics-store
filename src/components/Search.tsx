@@ -1,8 +1,8 @@
 import { useId, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { products } from '../data/products';
-import { normalise } from '../utilities/catalog';
-import { asset, productImageSet } from '../config/store';
+import { normalise, productSearchText } from '../utilities/catalog';
+import { ProductPhoto } from './ProductPhoto';
 import { Icon } from './Icon';
 export function Search() {
   const [query, setQuery] = useState(''),
@@ -11,10 +11,12 @@ export function Search() {
   const navigate = useNavigate(),
     id = useId();
   const results = query.trim()
-    ? products
-        .filter((p) => normalise(`${p.name} ${p.brand} ${p.model}`).includes(normalise(query)))
-        .slice(0, 5)
+    ? products.filter((p) => productSearchText(p).includes(normalise(query))).slice(0, 5)
     : [];
+  function resultLink(p: (typeof products)[number]) {
+    const match = p.variants.find((v) => v.model && normalise(v.model).includes(normalise(query)));
+    return `/product/${p.slug}${match ? `?variant=${match.id}` : ''}`;
+  }
   function submit() {
     setOpen(false);
     navigate(`/catalog?q=${encodeURIComponent(query.trim())}`);
@@ -70,7 +72,7 @@ export function Search() {
             if (e.key === 'Enter' && active >= 0 && open && results[active]) {
               e.preventDefault();
               setOpen(false);
-              navigate(`/product/${results[active].slug}`);
+              navigate(resultLink(results[active]));
             }
           }}
         />
@@ -85,15 +87,8 @@ export function Search() {
             {results.length ? (
               results.map((p, i) => (
                 <li role="option" aria-selected={active === i} id={`${id}-${i}`} key={p.id}>
-                  <Link to={`/product/${p.slug}`} onClick={() => setOpen(false)} tabIndex={-1}>
-                    <img
-                      src={asset(p.images[0].src)}
-                      srcSet={productImageSet(p.images[0].src)}
-                      sizes="48px"
-                      alt=""
-                      width="48"
-                      height="48"
-                    />
+                  <Link to={resultLink(p)} onClick={() => setOpen(false)} tabIndex={-1}>
+                    <ProductPhoto image={p.images[0]} sizes="48px" alt="" width={48} height={48} />
                     <span>
                       {p.name}
                       <small>

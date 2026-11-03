@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { categories } from '../data/categories';
 import { brandCatalog } from '../data/brands';
-import { brandAsset } from '../config/store';
+import { BrandMark } from '../components/BrandMark';
 import { PromoBanner } from '../components/PromoBanner';
 import { usePageMeta } from '../hooks/usePageMeta';
 export default function DirectoryPage({ showBrands = false }: { showBrands?: boolean }) {
@@ -13,7 +13,7 @@ export default function DirectoryPage({ showBrands = false }: { showBrands?: boo
         <h1>{showBrands ? 'המותגים המובילים' : 'כל המחלקות'}</h1>
         <p>
           {showBrands
-            ? 'שיוכי המוצרים למותגים הם להמחשה בלבד. אין בכך הצהרה על שותפות או הרשאה.'
+            ? 'גלו את המוצרים לפי מותג. מוצרי הדגמה מסומנים בנפרד; הצגת מותג אינה מעידה על שותפות או הרשאה.'
             : 'מבחר עולמות של טכנולוגיה, עיצוב ונוחות. בחרו מחלקה והתחילו לגלות.'}
         </p>
       </div>
@@ -21,7 +21,7 @@ export default function DirectoryPage({ showBrands = false }: { showBrands?: boo
         <div className="brand-grid directory-brands">
           {brandCatalog.map((brand) => (
             <Link key={brand.slug} to={`/brand/${brand.slug}`}>
-              <img src={brandAsset(brand.name)} alt={brand.name} width="160" height="70" />
+              <BrandMark name={brand.name} width={160} height={70} />
             </Link>
           ))}
         </div>

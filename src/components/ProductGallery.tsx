@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import type { ProductImage } from '../types/catalog';
-import { asset, productImageSet } from '../config/store';
+import { ProductPhoto } from './ProductPhoto';
 import { Modal } from './Modal';
 import { Icon } from './Icon';
 export function ProductGallery({ images }: { images: ProductImage[] }) {
@@ -21,13 +21,15 @@ export function ProductGallery({ images }: { images: ProductImage[] }) {
             setIndex((i) => (i + (delta > 0 ? 1 : images.length - 1)) % images.length);
         }}
       >
-        <span className="gallery-note">צילום להמחשה בלבד</span>
+        <span className="gallery-note">
+          {selected.note || (selected.demo ? 'צילום להמחשה בלבד' : 'צילום המוצר')}
+        </span>
         <button
           className="gallery-zoom"
           onClick={() => setZoom(true)}
           aria-label="לחצו להגדלה — הגדלת תמונת המוצר"
         >
-          <img src={asset(selected.src)} alt={selected.alt} width="800" height="680" />
+          <ProductPhoto image={selected} width={800} height={680} />
           <span>
             <Icon name="zoom" size={19} />
             לחצו להגדלה
@@ -43,21 +45,17 @@ export function ProductGallery({ images }: { images: ProductImage[] }) {
             aria-pressed={index === i}
             onClick={() => setIndex(i)}
           >
-            <img
-              src={asset(im.src)}
-              srcSet={productImageSet(im.src)}
-              sizes="90px"
-              alt={im.alt}
-              width="85"
-              height="70"
-              loading="lazy"
-            />
+            <ProductPhoto image={im} sizes="90px" width={85} height={70} loading="lazy" />
           </button>
         ))}
       </div>
       {zoom && (
-        <Modal title="תמונת המוצר — להמחשה" onClose={() => setZoom(false)} className="zoom-modal">
-          <img src={asset(selected.src)} alt={selected.alt} width="1200" height="1000" />
+        <Modal
+          title={selected.demo ? 'תמונת המוצר — להמחשה' : 'תמונת המוצר'}
+          onClose={() => setZoom(false)}
+          className="zoom-modal"
+        >
+          <ProductPhoto image={selected} width={1200} height={1000} />
           <div className="zoom-controls">
             <button
               className="button outline"

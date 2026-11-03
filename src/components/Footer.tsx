@@ -80,7 +80,7 @@ export function Footer() {
           <span>
             © {new Date().getFullYear()} {store.name}
           </span>
-          <p>אתר הדגמה · אין אפשרות לבצע הזמנה או תשלום. התמונות והנתונים להמחשה בלבד.</p>
+          <p>תצוגה מקדימה · אין אפשרות לבצע הזמנה או תשלום. מוצרי הדגמה מסומנים בנפרד.</p>
           <span>
             עברית <span className="gold-dot" />
           </span>

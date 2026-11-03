@@ -49,7 +49,7 @@ export function Header() {
               <Icon name="instagram" size={14} />
             </Link>
           </div>
-          <span className="topbar-demo">קטלוג להמחשה · מחירים ומלאי יעודכנו בהמשך</span>
+          <span className="topbar-demo">תצוגה מקדימה · מחירים ומלאי יעודכנו בהמשך</span>
           <div>
             <Link to="/info/delivery">משלוחים ואיסוף</Link>
             <Link to="/info/service">שירות לקוחות</Link>

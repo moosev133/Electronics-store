@@ -58,6 +58,12 @@ describe('editable store content', () => {
       for (const image of [...p.images, ...p.variants.flatMap((v) => (v.image ? [v.image] : []))]) {
         localImage(image.src);
         expect(image.alt.trim(), `${p.id}: image alt text is missing`).not.toBe('');
+        if (image.frame) {
+          const f = image.frame;
+          expect(f.x >= 0 && f.y >= 0 && f.width > 0 && f.height > 0).toBe(true);
+          expect(f.x + f.width).toBeLessThanOrEqual(f.sourceWidth);
+          expect(f.y + f.height).toBeLessThanOrEqual(f.sourceHeight);
+        }
       }
       expect(p.addedAt, `${p.id}: use YYYY-MM-DD`).toMatch(/^\d{4}-\d{2}-\d{2}$/);
       expect(new Date(p.addedAt).toISOString().slice(0, 10), `${p.id}: invalid date`).toBe(
@@ -111,7 +117,7 @@ describe('editable store content', () => {
       unique(category.subcategories, `${category.slug} subcategories`);
       localImage(`assets/products/${category.image}.webp`);
     }
-    for (const brand of brandCatalog) localImage(brand.logo);
+    for (const brand of brandCatalog) if (brand.logo) localImage(brand.logo);
     for (const slide of heroSlides) {
       localImage(slide.image);
       if (slide.smallImage) localImage(slide.smallImage);

@@ -1,11 +1,12 @@
 export interface Brand {
   name: string;
   slug: string;
-  logo: string;
+  logo?: string;
 }
 
 // Add the authentic logo path here; no filename convention is required.
 export const brandCatalog: Brand[] = [
+  { name: 'Lumivo', slug: 'lumivo' },
   { name: 'Samsung', slug: 'samsung', logo: 'assets/brands/samsung.svg' },
   { name: 'LG', slug: 'lg', logo: 'assets/brands/lg.svg' },
   { name: 'Bosch', slug: 'bosch', logo: 'assets/brands/bosch.svg' },

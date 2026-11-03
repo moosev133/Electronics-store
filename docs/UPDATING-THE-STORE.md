@@ -2,6 +2,17 @@
 
 The store is designed for recurring catalog and content updates. Product records, categories, banners and merchant details are separate from the reusable page layouts. A dashboard or CMS is not connected yet: these are editable, version-controlled content files. You can send future information as a spreadsheet, CSV, a document or a list; an importer can be added after the actual format is known.
 
+## Lumivo batch — 3 November 2026
+
+- Added two owner-supplied product families to Refrigerators & Freezers: chest freezers (five BC/BD models) and display/wine coolers (three LC-J models). All eight models were explicitly approved for inclusion. The owner identified the brand as Lumivo.
+- Product dimensions are transcribed in millimeters, in the order printed in the sheets. Do not label axes without a source confirming the order. Never add packaging dimensions to specifications or visible image views.
+- Freezers have distinct gross and net capacities; coolers list a single capacity without specifying gross vs. net. Preserve this distinction. Optional freezer LED/condenser equipment is not claimed as included.
+- `Variant.model` holds the actual model identifier, `variantLabel` controls the choice heading, and `sourceNote` records customer-facing provenance. Search includes variant models. IDs remain stable for saved carts and links.
+- The unmodified supplied JPEGs are in `public/assets/supplier/`. `ProductImage.frame` defines a bounded viewport around the original photo, shared by cards, gallery, zoom, search and cart. Brochure tables, unrelated products and phone overlays stay outside this viewport. Do not render these supplier sheets as unbounded images. The freezer photo represents the series; the three cooler photos follow the matching variants. No generated product imagery is used.
+- Lumivo displays as plain text until an authentic logo is provided. Brand `logo` is optional.
+- Prices, stock, warranty and delivery terms are still missing. The records are real supplied catalog data (`demo: false`, `verified: true`), not verified live inventory. Checkout stays disabled.
+- **Pending washing machine:** the supplied sheet and photograph identify PILOT PILWM10400W. The owner confirmed a Lumivo version and will provide its matching photo/specifications. No PILOT photo or specifications have been relabeled as Lumivo; no washing-machine record is published yet.
+
 ## Where to change things
 
 | Change                                                                                 | Edit                         |

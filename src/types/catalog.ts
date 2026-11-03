@@ -4,10 +4,21 @@ export interface ProductImage {
   src: string;
   alt: string;
   demo: boolean;
+  note?: string;
+  // Render only the product-photo area of an unmodified supplier sheet.
+  frame?: {
+    sourceWidth: number;
+    sourceHeight: number;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
 }
 export interface Variant {
   id: string;
   label: string;
+  model?: string;
   specs: Record<string, string>;
   image?: ProductImage;
   price?: number;
@@ -18,6 +29,8 @@ export interface Product {
   name: string;
   brand: string;
   model: string;
+  variantLabel?: string;
+  sourceNote?: string;
   category: string;
   subcategory: string;
   description: string;

@@ -4,6 +4,10 @@ export const normalise = (value: string) =>
     .toLocaleLowerCase('he')
     .replace(/["׳״'\s-]+/g, ' ')
     .trim();
+export const productSearchText = (p: Product) =>
+  normalise(
+    `${p.name} ${p.brand} ${p.model} ${p.subcategory} ${p.variants.map((v) => `${v.model || ''} ${v.label}`).join(' ')}`,
+  );
 export function selectProducts(
   catalog: Product[],
   params: URLSearchParams,
@@ -14,8 +18,7 @@ export function selectProducts(
     if (category && (category === 'offers' ? !p.sale : p.category !== category)) return false;
     if (params.get('new') === '1' && !p.isNew) return false;
     if (params.get('best') === '1' && !p.demoBestSeller) return false;
-    if (q && !normalise(`${p.name} ${p.brand} ${p.model} ${p.subcategory}`).includes(q))
-      return false;
+    if (q && !productSearchText(p).includes(q)) return false;
     for (const [key] of params) {
       if (!key.startsWith('f.')) continue;
       const field = key.slice(2);

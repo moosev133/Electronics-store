@@ -37,6 +37,7 @@ function ProductDetail({ product: p }: { product: (typeof products)[number] }) {
     viewed(p.id);
   }, [p.id, viewed]);
   const specs = { ...p.specs, ...variant.specs };
+  const model = variant.model || p.model;
   const gallery = variant.image
     ? [variant.image, ...p.images.filter((im) => im.src !== variant.image?.src)]
     : p.images;
@@ -49,10 +50,12 @@ function ProductDetail({ product: p }: { product: (typeof products)[number] }) {
         <Icon name="left" size={13} />
         <span>{p.name}</span>
       </nav>
-      <div className="demo-note">
-        <Icon name="sparkles" size={16} />
-        <p>מוצר הדגמה: התמונה, המפרט ושיוך המותג להמחשה בלבד. אין מדובר בדגם מסחרי מאומת.</p>
-      </div>
+      {p.demo && (
+        <div className="demo-note">
+          <Icon name="sparkles" size={16} />
+          <p>מוצר הדגמה: התמונה, המפרט ושיוך המותג להמחשה בלבד. אין מדובר בדגם מסחרי מאומת.</p>
+        </div>
+      )}
       <div className="product-detail">
         <ProductGallery key={variant.id} images={gallery} />
         <div className="purchase-panel">
@@ -62,8 +65,12 @@ function ProductDetail({ product: p }: { product: (typeof products)[number] }) {
           </Link>
           <h1>{p.name}</h1>
           <p className="model">
-            דגם הדגמה <bdi>{p.model}</bdi>
-            <span>·</span>מק״ט <bdi>{p.id}</bdi>
+            {p.demo ? 'דגם הדגמה' : 'דגם'} <bdi>{model}</bdi>
+            {p.demo && (
+              <>
+                <span>·</span>מק״ט <bdi>{p.id}</bdi>
+              </>
+            )}
           </p>
           <p className="availability">
             <span />
@@ -75,14 +82,16 @@ function ProductDetail({ product: p }: { product: (typeof products)[number] }) {
               .map(([key, value]) => (
                 <span key={key}>
                   {specLabels[key]}
-                  <strong>{value}</strong>
+                  <strong>
+                    <bdi dir={key === 'productDimensions' ? 'ltr' : 'auto'}>{value}</bdi>
+                  </strong>
                 </span>
               ))}
           </div>
           {p.variants.length > 1 && (
             <fieldset className="variant-selector">
               <legend>
-                בחרו גודל מסך <small>(אפשרויות הדגמה)</small>
+                {p.variantLabel || 'בחרו גודל מסך'} {p.demo && <small>(אפשרויות הדגמה)</small>}
               </legend>
               <div>
                 {p.variants.map((v) => (
@@ -96,7 +105,7 @@ function ProductDetail({ product: p }: { product: (typeof products)[number] }) {
                       setParams(next, { replace: true, preventScrollReset: true });
                     }}
                   >
-                    {v.label}
+                    <bdi>{v.label}</bdi>
                   </button>
                 ))}
               </div>
@@ -159,26 +168,30 @@ function ProductDetail({ product: p }: { product: (typeof products)[number] }) {
         <section className="specification-section">
           <span className="eyebrow">כל הפרטים, במקום אחד</span>
           <h2>מפרט טכני</h2>
-          <p className="section-note">נתוני הדגמה סינתטיים — אינם מפרט של מוצר אמיתי.</p>
+          <p className="section-note">
+            {p.demo ? 'נתוני הדגמה סינתטיים — אינם מפרט של מוצר אמיתי.' : p.sourceNote}
+          </p>
           <table>
             <caption className="sr-only">
-              מפרט הדגמה של {p.name}, {variant.label}
+              {p.demo ? 'מפרט הדגמה של' : 'מפרט של'} {p.name}, {variant.label}
             </caption>
             <tbody>
               <tr>
-                <th scope="row">מותג (שיוך להמחשה)</th>
+                <th scope="row">{p.demo ? 'מותג (שיוך להמחשה)' : 'מותג'}</th>
                 <td>{p.brand}</td>
               </tr>
               <tr>
-                <th scope="row">דגם הדגמה</th>
+                <th scope="row">{p.demo ? 'דגם הדגמה' : 'דגם'}</th>
                 <td>
-                  <bdi>{p.model}</bdi>
+                  <bdi>{model}</bdi>
                 </td>
               </tr>
               {Object.entries(specs).map(([key, value]) => (
                 <tr key={key}>
                   <th scope="row">{specLabels[key] || key}</th>
-                  <td>{value}</td>
+                  <td>
+                    <bdi dir={key === 'productDimensions' ? 'ltr' : 'auto'}>{value}</bdi>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -203,7 +216,9 @@ function ProductDetail({ product: p }: { product: (typeof products)[number] }) {
                 .slice(0, 5)
                 .map(([key, value]) => (
                   <li key={key}>
-                    {specLabels[key]}: {value} (להמחשה)
+                    {specLabels[key]}:{' '}
+                    <bdi dir={key === 'productDimensions' ? 'ltr' : 'auto'}>{value}</bdi>
+                    {p.demo && ' (להמחשה)'}
                   </li>
                 ))}
             </ul>

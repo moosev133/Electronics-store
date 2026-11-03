@@ -6,7 +6,8 @@ import { Icon } from '../components/Icon';
 import { products } from '../data/products';
 import { brandCatalog } from '../data/brands';
 import { selectCategories, getCategory } from '../data/categories';
-import { productImageSet, asset, brandAsset } from '../config/store';
+import { productImageSet, asset } from '../config/store';
+import { BrandMark } from '../components/BrandMark';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { useShop } from '../hooks/ShopContext';
 import { homepage, serviceHighlights } from '../data/homepage';
@@ -127,13 +128,7 @@ export default function HomePage() {
         <div className="brand-grid">
           {brandCatalog.map((brand) => (
             <Link to={`/brand/${brand.slug}`} key={brand.slug} aria-label={`מוצרי ${brand.name}`}>
-              <img
-                src={brandAsset(brand.name)}
-                alt={brand.name}
-                width="130"
-                height="50"
-                loading="lazy"
-              />
+              <BrandMark name={brand.name} />
             </Link>
           ))}
         </div>

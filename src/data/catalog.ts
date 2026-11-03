@@ -1,8 +1,161 @@
-import type { Product } from '../types/catalog';
+import type { Product, ProductImage } from '../types/catalog';
+
+const freezerPhoto: ProductImage = {
+  src: 'assets/supplier/lumivo-freezers.jpeg',
+  alt: 'מקפיא שוכב לבן מסדרת BC/BD — צילום הסדרה מתוך דף המוצר שסופק',
+  demo: false,
+  note: 'צילום הסדרה; המראה עשוי להשתנות בין הדגמים',
+  frame: { sourceWidth: 1166, sourceHeight: 1600, x: 75, y: 270, width: 735, height: 405 },
+};
+const coolerPhoto = (model: string, x: number, width: number): ProductImage => ({
+  src: 'assets/supplier/lumivo-display-coolers.jpeg',
+  alt: `מקרר תצוגה למשקאות ויין ${model} — צילום מתוך דף המוצר שסופק`,
+  demo: false,
+  note: 'צילום מתוך דף המוצר',
+  frame: { sourceWidth: 736, sourceHeight: 1600, x, y: 425, width, height: 355 },
+});
 
 // Edit product records here. Keep IDs and variant IDs stable across routine updates.
-// Current records are demonstration data, not verified inventory.
+// Owner-supplied records and clearly marked demonstration records coexist here.
 export const products: Product[] = [
+  {
+    id: 'lumivo-chest-freezers',
+    slug: 'lumivo-chest-freezer',
+    name: 'מקפיא שוכב Lumivo',
+    brand: 'Lumivo',
+    model: 'BC/BD',
+    variantLabel: 'בחרו דגם ונפח',
+    sourceNote: 'המפרט מבוסס על דף המוצר שסופק לחנות.',
+    category: 'refrigerators',
+    subcategory: 'מקפיאים',
+    description:
+      'סדרת מקפיאים שוכבים עם תרמוסטט מכני, יכולת הקפאה מהירה וסל אחסון. חמישה דגמים לבחירה, בנפח נטו של 391 עד 895 ליטר. בחירת דגם מעדכנת את הנפח ואת מידות המוצר במפרט.',
+    specs: {
+      capacity: '391–895 ליטר נטו',
+      temperature: '‎−18°C ומטה',
+      type: 'מקפיא שוכב',
+      control: 'תרמוסטט מכני',
+      climate: 'N/ST/T',
+      features: 'הקפאה מהירה, סל אחסון, ידית אחיזה, שני גלגלים ושתי רגליות מתכווננות',
+    },
+    images: [freezerPhoto],
+    variants: [
+      {
+        id: 'lumivo-bc-bd-446',
+        model: 'BC/BD-446',
+        label: 'BC/BD-446 · 391 ל׳ נטו',
+        specs: {
+          capacity: '391 ליטר נטו',
+          grossCapacity: '446 ליטר',
+          productDimensions: '1280 × 735 × 850',
+        },
+      },
+      {
+        id: 'lumivo-bc-bd-546',
+        model: 'BC/BD-546',
+        label: 'BC/BD-546 · 493 ל׳ נטו',
+        specs: {
+          capacity: '493 ליטר נטו',
+          grossCapacity: '546 ליטר',
+          productDimensions: '1530 × 735 × 850',
+        },
+      },
+      {
+        id: 'lumivo-bc-bd-607',
+        model: 'BC/BD-607',
+        label: 'BC/BD-607 · 521 ל׳ נטו',
+        specs: {
+          capacity: '521 ליטר נטו',
+          grossCapacity: '607 ליטר',
+          productDimensions: '1800 × 710 × 850',
+        },
+      },
+      {
+        id: 'lumivo-bc-bd-798',
+        model: 'BC/BD-798',
+        label: 'BC/BD-798 · 717 ל׳ נטו',
+        specs: {
+          capacity: '717 ליטר נטו',
+          grossCapacity: '798 ליטר',
+          productDimensions: '1934 × 845 × 910',
+        },
+      },
+      {
+        id: 'lumivo-bc-bd-1098',
+        model: 'BC/BD-1098',
+        label: 'BC/BD-1098 · 895 ל׳ נטו',
+        specs: {
+          capacity: '895 ליטר נטו',
+          grossCapacity: '1098 ליטר',
+          productDimensions: '2360 × 845 × 910',
+        },
+      },
+    ],
+    availability: 'unknown',
+    isNew: true,
+    featured: true,
+    sale: false,
+    demoBestSeller: false,
+    demo: false,
+    verified: true,
+    addedAt: '2026-11-03',
+  },
+  {
+    id: 'lumivo-display-coolers',
+    slug: 'lumivo-display-cooler',
+    name: 'מקרר תצוגה למשקאות ויין Lumivo',
+    brand: 'Lumivo',
+    model: 'LC-J',
+    variantLabel: 'בחרו דגם ונפח',
+    sourceNote: 'המפרט מבוסס על דף המוצר שסופק לחנות. הנפח מופיע בדף ללא הבחנה בין ברוטו לנטו.',
+    category: 'refrigerators',
+    subcategory: 'מקררי תצוגה ויין',
+    description:
+      'מקררי תצוגה עם חזית זכוכית, בקרת טמפרטורה דיגיטלית וקירור באמצעות מאוורר. תאורת LED אנכית בשני הצדדים ומדפי רשת פלדה מציגים את התכולה בצורה נוחה. שלושה דגמים לבחירה בנפחים של 455, 770 ו־1195 ליטר.',
+    specs: {
+      capacity: '455–1195 ליטר',
+      temperature: '0–10°C',
+      type: 'מקרר תצוגה למשקאות ויין',
+      control: 'בקרת טמפרטורה דיגיטלית',
+      cooling: 'קירור דינמי באמצעות מאוורר; מדחס אחורי',
+      lighting: 'תאורת LED אנכית בשני הצדדים',
+      cabinet: 'ארון פלדה צבוע, חזית זכוכית ומסגרת דלת מאלומיניום',
+      features: 'מדפי רשת פלדה מחוזקים וגלגלים',
+      climate: 'N/ST/T',
+    },
+    images: [coolerPhoto('LC-700J', 43, 153)],
+    variants: [
+      {
+        id: 'lumivo-lc-700j',
+        model: 'LC-700J',
+        label: 'LC-700J · 455 ל׳',
+        specs: { capacity: '455 ליטר', productDimensions: '700 × 605 × 1965' },
+        image: coolerPhoto('LC-700J', 43, 153),
+      },
+      {
+        id: 'lumivo-lc-1120j',
+        model: 'LC-1120J',
+        label: 'LC-1120J · 770 ל׳',
+        specs: { capacity: '770 ליטר', productDimensions: '1120 × 605 × 1965' },
+        image: coolerPhoto('LC-1120J', 210, 218),
+      },
+      {
+        id: 'lumivo-lc-1680j',
+        model: 'LC-1680J',
+        label: 'LC-1680J · 1195 ל׳',
+        specs: { capacity: '1195 ליטר', productDimensions: '1680 × 605 × 1965' },
+        image: coolerPhoto('LC-1680J', 445, 260),
+      },
+    ],
+    availability: 'unknown',
+    isNew: true,
+    featured: true,
+    sale: false,
+    demoBestSeller: false,
+    demo: false,
+    verified: true,
+    addedAt: '2026-11-03',
+  },
   {
     id: 'tvs-1',
     slug: 'demo-tvs-1',
