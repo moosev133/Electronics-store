@@ -64,18 +64,18 @@ Hebrew is complete. The locale type, direction/currency settings and metadata bo
 
 ## Hosted preview
 
-The owner-private preview is live at **https://mostafa-electronics-preview.meliodasin14.chatgpt.site**. Sign in with the owning ChatGPT account if prompted. It contains the demonstration catalog; checkout remains disabled.
+The primary public review preview is **https://moosev133.github.io/Electronics-store/**. It contains the demonstration catalog; checkout remains disabled. The repository was authorized to become public on 3 November 2026, and hosting stays on the free plan.
 
-The source remains on GitHub under `codex/premium-hebrew-storefront`. Preview publication is a separate Sites deployment, not an automatic consequence of a GitHub push. See [Preview hosting and updates](docs/PREVIEW.md) for the existing Site identity and update workflow.
+The release source is on GitHub under `main`; the `codex/premium-hebrew-storefront` branch retains the development history. The existing Pages workflow deploys changes pushed to `main`. See [Preview hosting and updates](docs/PREVIEW.md) for deployment details and the previous Sites preview.
 
 ## Deploy to GitHub Pages
 
-On 3 November 2026, GitHub declined Pages activation because the current plan does not support Pages for this private repository. Repository visibility was preserved. The steps below remain available if the account becomes eligible.
+The repository is public at the user's request, making this static review preview eligible for free GitHub Pages hosting.
 
-1. Push/merge this feature branch into `main` after review, or run the deployment workflow manually on the feature branch.
+1. Validate changes, then push/merge the intended release into `main`.
 2. In the repository, open **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 3. The `Deploy to GitHub Pages` workflow builds with `VITE_BASE_PATH=/Electronics-store/` and publishes `dist/`.
-4. The expected address is `https://moosev133.github.io/Electronics-store/` **after a successful deployment**. This README does not claim the site is already deployed.
+4. Wait for the deployment workflow to succeed, then verify `https://moosev133.github.io/Electronics-store/` and a direct product link.
 
 Clean routes such as `/Electronics-store/category/tvs` work through the generated `404.html` redirect. It preserves the route and query string, and `index.html` restores the original URL. On a host supporting SPA rewrites, serve `index.html` for missing routes and use the appropriate `VITE_BASE_PATH` (`/` for a root domain).
 
@@ -84,7 +84,7 @@ VITE_BASE_PATH=/Electronics-store/ VITE_SITE_URL=https://moosev133.github.io npm
 VITE_BASE_PATH=/Electronics-store/ npm run preview
 ```
 
-GitHub Pages is appropriate for this frontend demo. For production search indexing and commerce, use server rendering/prerendering and verified backend data; this client-rendered app does not claim server-rendered product SEO.
+GitHub Pages is used only for this frontend review demo, which accepts no orders or payments. Move the production store to a commerce-compatible host before enabling transactions; GitHub Pages does not permit hosting an operational e-commerce business. Production commerce also requires verified backend data and payment integration.
 
 ## Project structure
 
