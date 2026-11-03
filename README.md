@@ -62,7 +62,15 @@ This is a frontend demonstration. It does not create accounts, orders, payments,
 
 Hebrew is complete. The locale type, direction/currency settings and metadata boundary are centralized in `src/config/store.ts` and `src/types/catalog.ts`. For Arabic/English, extract page copy into locale dictionaries and translate product data before exposing a language switch. No unfinished language control is shown to shoppers.
 
+## Hosted preview
+
+The owner-private preview is live at **https://mostafa-electronics-preview.meliodasin14.chatgpt.site**. Sign in with the owning ChatGPT account if prompted. It contains the demonstration catalog; checkout remains disabled.
+
+The source remains on GitHub under `codex/premium-hebrew-storefront`. Preview publication is a separate Sites deployment, not an automatic consequence of a GitHub push. See [Preview hosting and updates](docs/PREVIEW.md) for the existing Site identity and update workflow.
+
 ## Deploy to GitHub Pages
+
+On 3 November 2026, GitHub declined Pages activation because the current plan does not support Pages for this private repository. Repository visibility was preserved. The steps below remain available if the account becomes eligible.
 
 1. Push/merge this feature branch into `main` after review, or run the deployment workflow manually on the feature branch.
 2. In the repository, open **Settings → Pages → Build and deployment → Source: GitHub Actions**.
