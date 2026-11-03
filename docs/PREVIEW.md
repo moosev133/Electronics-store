@@ -1,9 +1,9 @@
-# Private preview hosting
+# Preview hosting
 
 Published successfully on 3 November 2026:
 
 - URL: https://mostafa-electronics-preview.meliodasin14.chatgpt.site
-- Audience: owner only; ChatGPT sign-in may be required.
+- Current audience: public preview, explicitly requested on 3 November 2026 so the store owner can open the link without signing in. The Site originally launched owner-only.
 - Sites project ID: `appgprj_6ae9c06110f08191a6d72cab87fcd900`
 - Initial published version: `appgprj_6ae9c06110f08191a6d72cab87fcd900~appgver_43a6953650fc8191b7a73a2fe02aabc4`
 - Initial deployment: `appgdep_6ae9c8417ae4819192fcbe7ee5289c11`
@@ -22,8 +22,10 @@ The GitHub repository is the application source of truth. The Sites checkout is 
 2. Use the Sites skill and existing project ID to open/refresh the deployment checkout with a newly issued source credential. Do not create another Site or replace its Git history.
 3. Synchronize tracked application files from the intended GitHub revision into the deployment checkout, including intended removals. Preserve its `.git` and `.openai/hosting.json`; exclude dependencies, secrets, test output and generated builds.
 4. Preserve the hosting configuration below. Build with `VITE_BASE_PATH=/` and `VITE_SITE_URL=https://mostafa-electronics-preview.meliodasin14.chatgpt.site`.
-5. Use the supported Sites source helper to build, commit/push and package the deployment copy. Save and deploy that exact source/archive pair with the owner-private operation after confirming the existing audience.
-6. Confirm deployment success and report the same preview URL. Keep the preview private unless the owner requests a different audience.
+5. Use the supported Sites source helper to build, commit/push and package the deployment copy. Save and deploy that exact source/archive pair using the publishing flow for the audience returned by `get_site`.
+6. Confirm deployment success and report the same preview URL. Preserve the current audience from `get_site`; the owner has now explicitly requested public access for review.
+
+The image-clarity release was prepared and deployed under the original owner-private audience, then the user-authorized public access change was applied. For subsequent updates use the current public audience publishing flow (`save_site_version` then `deploy_site_version`); do not call the owner-private deployment operation while the Site is public. GitHub repository access remains private.
 
 ```json
 {

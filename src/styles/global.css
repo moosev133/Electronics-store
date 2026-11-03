@@ -496,12 +496,20 @@ strong {
   animation: fade-in 0.7s ease;
 }
 .hero-scene .hero-image {
-  object-position: center 53%;
+  width: 50%;
+  height: auto;
+  aspect-ratio: 1672 / 941;
+  inset: 50% auto auto 3%;
+  transform: translateY(-50%);
+  object-fit: contain;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  box-shadow: 0 14px 36px var(--shadow-raised);
 }
 .hero-shade {
   position: absolute;
   inset: 0;
-  background: var(--hero-overlay);
+  pointer-events: none;
   z-index: -1;
 }
 .hero-copy {
@@ -619,10 +627,7 @@ strong {
   top: 8%;
   object-fit: contain;
   border-radius: 16px;
-  mix-blend-mode: screen;
-}
-.hero-product .hero-shade {
-  background: var(--hero-product-overlay);
+  mix-blend-mode: multiply;
 }
 .service-strip {
   display: grid;
@@ -2717,8 +2722,13 @@ strong {
     object-position: 26% 55%;
     object-fit: cover;
   }
-  .hero-shade {
-    background: var(--hero-mobile-overlay);
+  .hero-scene .hero-image {
+    width: calc(100% - 36px);
+    max-width: 350px;
+    height: auto;
+    inset: auto auto 66px 50%;
+    transform: translateX(-50%);
+    border-radius: 12px;
   }
   .hero-copy {
     padding: 28px 26px;
@@ -2769,9 +2779,6 @@ strong {
     left: 15%;
     width: 70%;
     height: 42%;
-  }
-  .hero-product .hero-shade {
-    background: var(--hero-product-mobile-overlay);
   }
   .service-strip {
     grid-template-columns: repeat(2, 1fr);
@@ -3644,8 +3651,7 @@ strong {
 .category-hero > img:not(.brand-hero-image),
 .hero-product .hero-image,
 .mega-image img {
-  mix-blend-mode: normal;
-  mask-image: radial-gradient(ellipse at center, #000 33%, transparent 72%);
+  mix-blend-mode: multiply;
 }
 .product-meta small,
 .product-bottom > span {

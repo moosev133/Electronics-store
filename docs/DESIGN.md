@@ -42,3 +42,7 @@ Keep the HTML `theme-color` and SVG favicon colors aligned when changing the pal
 - Source comparison confirmed unchanged layout/typography/motion rules, page components, catalog data and all files in `public/assets`.
 - Desktop and mobile homepage screenshots were visually reviewed. The shared UI and palette were also inspected in the in-app browser.
 - These checks are not a claim of a complete accessibility certification or a new Lighthouse score.
+
+## Image clarity refinement
+
+The owner subsequently requested visible product corners and clearer homepage pictures. The radial edge masks and hero overlays were removed. Product images blend with the studio surface using `multiply`, preserving their full silhouette. The TV room image now sits in a softly framed, uncropped panel beside the copy on desktop and below it on mobile. The mobile panel is capped at 350px wide to leave space beneath the copy. Original image files, colors, typography and carousel behavior remain intact. Do not reintroduce edge fading over the products.

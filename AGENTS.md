@@ -11,4 +11,4 @@ The owner plans to supply real products, categories, images, pricing and busines
 - Run `npm run check` after content changes; it includes relationship and local-image validation. Run relevant browser checks for affected navigation or shopping flows.
 - Keep demo and verified inventory clearly distinguished. Do not invent prices, stock, reviews, discounts, policies or store details. Receiving real inventory does not authorize enabling checkout without a working backend/payment integration.
 - The current editor is source-controlled content, not an admin dashboard. Do not describe a CMS, importer or payment provider as connected until it exists and has been verified.
-- The existing private hosted preview and its Site identity are documented in `docs/PREVIEW.md`. Reuse that Site for preview updates; a GitHub push alone does not publish it.
+- The existing hosted preview and its audience are documented in `docs/PREVIEW.md`. Reuse that Site for preview updates; a GitHub push alone does not publish it. The owner explicitly requested a public preview link for sharing with the store owner.
