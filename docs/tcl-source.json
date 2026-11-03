@@ -1,0 +1,73 @@
+{
+  "local": "public/assets/brands/tcl.svg",
+  "title": "File:Logo of the TCL Corporation.svg",
+  "source": "https://commons.wikimedia.org/wiki/File:Logo_of_the_TCL_Corporation.svg",
+  "url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Logo_of_the_TCL_Corporation.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "metadata": {
+    "DateTime": {
+      "value": "2022-10-19 18:56:31",
+      "source": "mediawiki-metadata",
+      "hidden": ""
+    },
+    "ObjectName": {
+      "value": "Logo of the TCL Corporation",
+      "source": "mediawiki-metadata"
+    },
+    "CommonsMetadataExtension": {
+      "value": 1.2,
+      "source": "extension",
+      "hidden": ""
+    },
+    "Categories": {
+      "value": "SVG logos of companies of China|With trademark|PD textlogo|SVG text logos|All-caps logos|3 letter logos|White letter logos with red background|Valid SVG created with Inkscape:Text logos|SVG logos of manufacturing companies|TCL letter combinations|Logos of household appliance companies|Three letter combinations (all caps)|SVG logos of electronics manufacturing companies|TCL logos",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "Assessments": {
+      "value": "",
+      "source": "commons-categories",
+      "hidden": ""
+    },
+    "ImageDescription": {
+      "value": "Logo used for <a href=\"https://en.wikipedia.org/wiki/TCL_Electronics\" class=\"extiw\" title=\"w:TCL Electronics\">TCL Electronics</a>",
+      "source": "commons-desc-page"
+    },
+    "Credit": {
+      "value": "<p>Vektordaten: <a rel=\"nofollow\" class=\"external free\" href=\"http://electronics.tcl.com/en/global/home.php\">http://electronics.tcl.com/en/global/home.php</a><br>\n</p>\nFarbinfo: <a rel=\"nofollow\" class=\"external free\" href=\"http://www.tcl.com/main/template/3933/images/Cn_Logo.jpg\">http://www.tcl.com/main/template/3933/images/Cn_Logo.jpg</a>",
+      "source": "commons-desc-page"
+    },
+    "Artist": {
+      "value": "TCL Electronics",
+      "source": "commons-desc-page"
+    },
+    "LicenseShortName": {
+      "value": "Public domain",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "UsageTerms": {
+      "value": "Public domain",
+      "source": "commons-desc-page"
+    },
+    "AttributionRequired": {
+      "value": "false",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Copyrighted": {
+      "value": "False",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "Restrictions": {
+      "value": "trademarked",
+      "source": "commons-desc-page",
+      "hidden": ""
+    },
+    "License": {
+      "value": "pd",
+      "source": "commons-templates",
+      "hidden": ""
+    }
+  }
+}
